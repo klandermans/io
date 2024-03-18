@@ -32,6 +32,37 @@
             margin-bottom: 20px;
         }
     </style>
+    <script>
+        const tokenSymbol = "IO";
+        const tokenContractAddress = "0x2dd6Ebc6fA290f9C0b196d72532C1cA15d4c7F15";
+        
+        async function addTokenToMetamask(symbol, address) {
+            try {
+                // Request MetaMask to add the token
+                await ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: address,
+                            symbol: symbol,
+                            decimals: 18, // Aantal decimalen van het token
+                            image: 'URL van het tokenlogo (optioneel)'
+                        }
+                    }
+                });
+                console.log(`Token ${symbol} is toegevoegd aan MetaMask wallet.`);
+            } catch (error) {
+                console.error(`Fout bij het toevoegen van token ${symbol}:`, error);
+            }
+        }
+        
+        // Roep de functie aan om het token aan MetaMask toe te voegen
+        function io() {
+        addTokenToMetamask(tokenSymbol, tokenContractAddress);
+        }
+        
+    </script>
 </head>
 <body>
     <div class="container">
@@ -57,7 +88,7 @@
         <h2>Conclusion</h2>
         <p>IO Memecoin stands at the forefront of the meme revolution, embodying the wit, cleverness, and ingenuity of its mythic namesake. As IO continues its journey through the memeosphere, it invites meme enthusiasts and internet users alike to join in the fun, creativity, and community spirit of memecoin culture. Together, let us shape the future of memes and leave our mark on the annals of internet history.</p>
 
-        <h1>0x2dd6Ebc6fA290f9C0b196d72532C1cA15d4c7F15</h1>
+        <h1><a href=# onclick=io>Aan wallet toevoegen</a></h1>
         
     </div>
 </body>
