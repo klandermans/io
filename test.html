@@ -1,23 +1,28 @@
 <div id='bert'></div>
-<script>
-import WebSocket from 'ws';
 
+<script>
 const ws = new WebSocket('wss://pumpportal.fun/api/data');
 
-ws.on('open', function open() {
-
+ws.onopen = function() {
   // Subscribing to token creation events
   let payload = {
-      method: "subscribeRaydiumLiquidity", 
-    }
+      method: "subscribeRaydiumLiquidity"
+  };
   ws.send(JSON.stringify(payload));
+};
 
- 
-});
+ws.onmessage = function(event) {
+  try {
+    let data = JSON.parse(event.data);
+    let bertDiv = document.getElementById('bert');
 
-ws.on('message', function message(data) {
-  documenty.getElementById('bert').append('<code>'+JSON.parse(data)+'</code>');
-});
+    let codeBlock = document.createElement('code');
+    codeBlock.textContent = JSON.stringify(data, null, 2);
+    bertDiv.appendChild(codeBlock);
+    bertDiv.appendChild(document.createElement('br')); // Zorgt voor een nieuwe regel
 
-  
+  } catch (e) {
+    console.error("Fout bij het verwerken van data:", e);
+  }
+};
 </script>
